@@ -1,6 +1,6 @@
 {
   "name": "web-structure",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful and flexible web scraping library with concurrent processing and DOM hierarchy awareness",
   "type": "module",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
     "build": "tsc",
     "test": "jest",
     "prepublishOnly": "npm run build",
-    "publish": "npm run build && npm publish"
+    "pb": "npm run build && npm publish"
   },
   "keywords": [
     "web-scraping",

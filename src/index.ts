@@ -12,7 +12,7 @@ interface ScrapingResult {
 
 const MAX_DEEPEST_DEPTH = 10;
 
-interface ScrapingOptions {
+export interface ScrapingOptions {
   /**
    * @description Maximum depth for recursive crawling. If a page contains child links, they will be crawled by default.
    * The more child links, the slower the crawling process.
@@ -144,7 +144,7 @@ async function scrapeWebPage(
   try {
     const page = await browser.newPage();
 
-    console.log(`prepare loading ${url}...`)
+    options.logger(`prepare loading ${url}...`)
 
     // Navigate to the page and wait until network is idle
     await page.goto(url, {
@@ -205,7 +205,7 @@ async function scrapeWebPage(
 
           return [key, elements.length === 1 ? elements[0] : elements];
         } catch (error) {
-          console.error(`Failed to extract ${key} with selector ${selector} after all retries:`, error);
+          options.logger(`Failed to extract ${key} with selector ${selector} after all retries: ${error}`);
           return [key, ''];
         }
       }
@@ -260,7 +260,7 @@ async function scrapeWebPage(
           );
           childPages.push(childResult);
         } catch (error) {
-          console.error(`Error scraping child page ${link}:`, error);
+          options.logger(`Error scraping child page ${link}: ${error}`);
           if (options.breakWhenFailed) {
             throw error;
           }
